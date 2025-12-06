@@ -1,0 +1,9 @@
+📸 Placez vos photos de AHLEM ici
+   
+Formats supportés: .jpg, .jpeg, .png, .gif
+
+Suggestions:
+- photo1.jpg
+- photo2.jpg
+- photo3.jpg
+etc.

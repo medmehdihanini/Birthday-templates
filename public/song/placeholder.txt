@@ -1,0 +1,13 @@
+🎵 INSTRUCTIONS POUR LA CHANSON D'ANNIVERSAIRE 🎵
+
+Placez votre fichier audio ici avec le nom: birthday-song.mp3
+
+Formats supportés:
+- .mp3 (recommandé)
+- .wav
+- .ogg
+
+Le fichier sera automatiquement joué quand votre maman souffle toutes les bougies!
+
+Note: Si vous utilisez un nom différent, modifiez le chemin dans src/App.js ligne avec:
+<source src="/song/VOTRE-FICHIER.mp3" type="audio/mpeg" />

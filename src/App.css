@@ -1,0 +1,536 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  overflow-x: hidden;
+}
+
+.App {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ===== ÉCRAN DE BIENVENUE ===== */
+.welcome-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 50%, #fbc2eb 100%);
+  background-size: 200% 200%;
+  animation: gradientShift 10s ease infinite;
+  z-index: 1000;
+}
+
+.welcome-content {
+  text-align: center;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 30px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  animation: floatWelcome 3s ease-in-out infinite;
+}
+
+@keyframes floatWelcome {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+.welcome-title {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: bold;
+  background: linear-gradient(45deg, #ff6b6b, #feca57, #ff6b6b);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+  margin-bottom: 20px;
+  text-shadow: 0 0 30px rgba(255, 107, 107, 0.5);
+}
+
+@keyframes shimmer {
+  to { background-position: 200% center; }
+}
+
+.welcome-subtitle {
+  font-size: clamp(1.2rem, 4vw, 2rem);
+  color: #fff;
+  margin-bottom: 40px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+.start-button {
+  padding: 20px 60px;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 10px 30px rgba(245, 87, 108, 0.5);
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.start-button:hover {
+  transform: scale(1.1) translateY(-5px);
+  box-shadow: 0 15px 40px rgba(245, 87, 108, 0.7);
+}
+
+.start-button:active {
+  transform: scale(1.05) translateY(-2px);
+}
+
+/* ===== SECTION DES BOUGIES ===== */
+.candles-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.instruction {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  color: white;
+  text-align: center;
+  margin-bottom: 60px;
+  padding: 20px 40px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  font-weight: 600;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  max-width: 90%;
+}
+
+.candles-container {
+  display: flex;
+  gap: clamp(20px, 5vw, 60px);
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-end;
+  margin-bottom: 40px;
+}
+
+.candle {
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.candle:hover {
+  transform: scale(1.1);
+}
+
+.flame {
+  font-size: clamp(3rem, 8vw, 5rem);
+  animation: flicker 0.5s infinite alternate;
+  filter: drop-shadow(0 0 20px #ff6b00);
+}
+
+@keyframes flicker {
+  0% { opacity: 1; transform: scale(1) translateY(0); }
+  100% { opacity: 0.8; transform: scale(1.05) translateY(-5px); }
+}
+
+.smoke {
+  position: absolute;
+  top: -20px;
+  font-size: 2rem;
+  opacity: 0;
+}
+
+.candle-stick {
+  width: clamp(40px, 10vw, 80px);
+  height: clamp(100px, 20vw, 150px);
+  background: linear-gradient(180deg, #ff6b6b 0%, #ee5a6f 50%, #c44569 100%);
+  border-radius: 10px 10px 5px 5px;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  margin-top: 10px;
+}
+
+.candle-stick::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20%;
+  height: 20px;
+  background: #333;
+  border-radius: 5px;
+}
+
+.counter {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  color: white;
+  font-weight: bold;
+  padding: 15px 40px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 50px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+/* ===== SURPRISE CONTAINER ===== */
+.surprise-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  overflow-y: auto;
+}
+
+.petal {
+  position: fixed;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.heart {
+  position: fixed;
+  font-size: clamp(2rem, 4vw, 3rem);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.sparkle {
+  position: fixed;
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ===== MESSAGE D'ANNIVERSAIRE ===== */
+.birthday-message {
+  text-align: center;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  padding: clamp(30px, 5vw, 60px);
+  border-radius: 30px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  margin-bottom: 40px;
+  max-width: 95%;
+}
+
+.birthday-text {
+  font-size: clamp(3rem, 10vw, 7rem);
+  font-weight: bold;
+  background: linear-gradient(45deg, #ff6b6b, #feca57, #ff9ff3, #54a0ff, #ff6b6b);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+  margin-bottom: 20px;
+  line-height: 1.2;
+  text-shadow: 0 0 50px rgba(255, 107, 107, 0.5);
+}
+
+.mom-name {
+  font-size: clamp(4rem, 12vw, 8rem);
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 
+    0 0 20px rgba(255, 107, 107, 0.8),
+    0 0 40px rgba(255, 107, 107, 0.6),
+    0 5px 20px rgba(0, 0, 0, 0.5);
+  margin-bottom: 20px;
+  letter-spacing: 5px;
+}
+
+.birthday-date {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  color: #fff;
+  margin-bottom: 30px;
+  font-weight: 300;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.love-message {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  color: #fff;
+  margin: 20px 0;
+  font-weight: 500;
+  text-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+  line-height: 1.5;
+}
+
+.love-message-2 {
+  font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+  color: #fff;
+  margin: 20px 0;
+  font-style: italic;
+  font-weight: 300;
+  text-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+  line-height: 1.5;
+}
+
+/* ===== IMAGES FLOTTANTES EN ARRIÈRE-PLAN ===== */
+.background-photos {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bg-photo {
+  position: absolute;
+  width: clamp(300px, 40vw, 500px);
+  height: clamp(300px, 40vw, 500px);
+  border-radius: 30px;
+  overflow: hidden;
+  opacity: 0;
+  animation: floatAndFade 18s ease-in-out infinite;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  border: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.bg-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bg-photo-1 {
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.bg-photo-2 {
+  top: 50%;
+  right: 10%;
+  transform: translateY(-50%);
+  animation-delay: 6s;
+}
+
+.bg-photo-3 {
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  animation-delay: 12s;
+}
+
+@keyframes floatAndFade {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) rotate(-5deg);
+  }
+  10% {
+    opacity: 0.4;
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    opacity: 0.5;
+    transform: scale(1.05) rotate(2deg);
+  }
+  30% {
+    opacity: 0.3;
+  }
+  33.33% {
+    opacity: 0;
+    transform: scale(0.9) rotate(5deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8) rotate(-5deg);
+  }
+}
+
+/* ===== GALERIE PHOTOS (SUPPRIMÉE - REMPLACÉE PAR BACKGROUND) ===== */
+.photo-gallery {
+  display: none;
+}
+
+.photo-item {
+  display: none;
+}
+
+.photo {
+  display: none;
+}
+
+.photo-placeholder {
+  aspect-ratio: 1;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.photo-placeholder:hover {
+  transform: scale(1.05) rotate(2deg);
+}
+
+.photo-placeholder p {
+  font-size: clamp(3rem, 8vw, 5rem);
+  margin-bottom: 10px;
+}
+
+.photo-placeholder span {
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  color: white;
+  font-weight: 500;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== RESPONSIVE POUR SAMSUNG S24 ULTRA (480 x 1080) ===== */
+@media screen and (max-width: 480px) {
+  .App {
+    background-size: 600% 600%;
+  }
+
+  .welcome-content {
+    padding: 30px 20px;
+    margin: 0 10px;
+  }
+
+  .bg-photo {
+    width: clamp(200px, 60vw, 300px);
+    height: clamp(200px, 60vw, 300px);
+  }
+
+  .bg-photo-1 {
+    top: 5%;
+    left: 5%;
+  }
+
+  .bg-photo-2 {
+    top: 40%;
+    right: 5%;
+  }
+
+  .bg-photo-3 {
+    bottom: 5%;
+    left: 5%;
+  }
+
+  .candles-container {
+    gap: 15px;
+  }
+
+  .candle-stick {
+    width: 50px;
+    height: 100px;
+  }
+
+  .birthday-message {
+    padding: 30px 20px;
+    margin: 0 10px 30px;
+  }
+
+  .photo-gallery {
+    grid-template-columns: 1fr;
+    padding: 10px;
+    gap: 20px;
+  }
+
+  .photo-placeholder {
+    min-height: 300px;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .candles-container {
+    gap: 10px;
+  }
+
+  .candle-stick {
+    width: 40px;
+    height: 80px;
+  }
+
+  .instruction {
+    padding: 15px 20px;
+    margin-bottom: 40px;
+  }
+}
+
+/* ===== RESPONSIVE TABLETTE ===== */
+@media screen and (min-width: 481px) and (max-width: 1024px) {
+  .photo-gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ===== ANIMATIONS SUPPLÉMENTAIRES ===== */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+/* Assurer que le contenu est scrollable */
+.surprise-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.surprise-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.surprise-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+.surprise-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
