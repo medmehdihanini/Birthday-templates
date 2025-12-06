@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import anime from 'animejs/lib/anime.es.js';
 import './App.css';
-import photo1 from './assets/IMG_0016.jpeg';
-import photo2 from './assets/IMG_0017.jpeg';
-import photo3 from './assets/IMG_0018.jpeg';
+import photo1 from './assets/optimized/IMG_0016.jpeg';
+import photo2 from './assets/optimized/IMG_0017.jpeg';
+import photo3 from './assets/optimized/IMG_0018.jpeg';
 
 function App() {
   const [candlesBlown, setCandlesBlown] = useState(0);
@@ -205,7 +205,7 @@ function App() {
       {showSurprise && (
         <div className="surprise-container">
           {/* Pétales de fleurs */}
-          {[...Array(30)].map((_, i) => (
+          {[...Array(15)].map((_, i) => (
             <div key={i} className="petal" style={{
               left: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 2}s`
@@ -213,7 +213,7 @@ function App() {
           ))}
 
           {/* Cœurs flottants */}
-          {[...Array(20)].map((_, i) => (
+          {[...Array(12)].map((_, i) => (
             <div key={i} className="heart" style={{
               left: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 3}s`
@@ -221,7 +221,7 @@ function App() {
           ))}
 
           {/* Étincelles */}
-          {[...Array(50)].map((_, i) => (
+          {[...Array(25)].map((_, i) => (
             <div key={i} className="sparkle" style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -245,20 +245,20 @@ function App() {
           {/* Images flottantes en arrière-plan */}
           <div className="background-photos">
             <div className="bg-photo bg-photo-1">
-              <img src={photo1} alt="AHLEM" />
+              <img src={photo1} alt="AHLEM" loading="lazy" />
             </div>
             <div className="bg-photo bg-photo-2">
-              <img src={photo2} alt="AHLEM" />
+              <img src={photo2} alt="AHLEM" loading="lazy" />
             </div>
             <div className="bg-photo bg-photo-3">
-              <img src={photo3} alt="AHLEM" />
+              <img src={photo3} alt="AHLEM" loading="lazy" />
             </div>
           </div>
         </div>
       )}
 
       {/* Audio player (caché) */}
-      <audio ref={audioRef} loop>
+      <audio ref={audioRef} loop preload="none">
         <source src="/song/song.mp3" type="audio/mpeg" />
       </audio>
     </div>
